@@ -29,8 +29,8 @@ void iniciaArvoreB(NO*raiz){
 }
 
 void main(){
-	NO*raiz;
-    //iniciaArvoreB(&raiz);
+	NO raiz;
+    iniciaArvoreB(&raiz);
     //imprimeArvoreB(&raiz);
     //buscaArvoreB(&raiz,20,);
     printf("\n**************COMPILOU!****************\n");
