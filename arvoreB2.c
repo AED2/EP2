@@ -3,6 +3,10 @@
 	
 	gcc arvoreB2.c -o arvoreB2exeFile.exe
 	./arvoreB2exeFile.exe
+	
+	EXCETO A RAIS Q NO INICIO TEM 2 SETAS NULL E 1 ELEMENTO/QUADRINHO QUE É A RAIZ
+	SE T = 2 MAX FILHOS/SETAS SAINDO = 2*T = 4
+	SE T = 2 MAX DE ELEMENTOS/QUADRADINHOS = 2*T-1 = 3
 */
 
 #include<stdio.h>
@@ -21,7 +25,7 @@ typedef struct no{
     int numChaves;
 }NO;
 
-void iniciaArvoreB(NO*raiz){
+NO iniciaArvoreB(NO* raiz){
     raiz = (NO*)malloc(sizeof(NO));
     raiz->folha = true;
     raiz->numChaves = 0;
@@ -30,38 +34,43 @@ void iniciaArvoreB(NO*raiz){
 		raiz->filho[fValor] = NULL;
 		fValor++;
 	}
+	return *raiz;
 }
 
 void imprimeArvoreB(NO*raiz){
     NO* p = raiz;
     printf("(S");
+    
+	//printf("\n Valor da folha? %s", p->folha?"true":"false");
 	
-	int tValor =  t;
-	printf("\n ALHO_%p \n",p->filho[0]);
-	printf("\n ALHO_%p \n",p->filho[1]);
-	printf("\n ALHO_%p \n",p->filho[2]);
-	printf("\n ALHO_%p \n",p->filho[3]);
-	
-	while(tValor>1){
-		p = p->filho[0];
-		tValor--;
-	}
-	
-    /*
-	printf("\n Valor da folha? %s", p->folha?"true":"false");
 	int i = 0;
     while(!p->folha){
         p = p->filho[i];
         printf("(I");
     }
-	*/
+	
     printf("E)");
+}
+
+NO insereArvoreB(NO* raiz, int ch){
+	NO* p = raiz;
+	if(p->folha){
+		p->chave[0] = ch;
+		int numFilho = 0;
+		while(numFilho < 2*t ){
+			p->filho[numFilho] = NULL;
+		}
+    }
+	return *raiz;
 }
 
 void main(){
 	NO raiz;
-    iniciaArvoreB(&raiz);
+    raiz = iniciaArvoreB(&raiz);
     imprimeArvoreB(&raiz);
+	
+	//raiz = insereArvoreB(&raiz, 10);
+	imprimeArvoreB(&raiz);
     //buscaArvoreB(&raiz,20,);
     printf("\n**************COMPILOU!****************\n");
 }
