@@ -49,12 +49,16 @@ void imprimeArvoreB(NO*raiz){
 	
 	//SE FOR FOLHA
 	if(p->folha){
-		//ESTÁ VAZIA
-			//FAZ NADA
 		//ESTÁ COM ELEMENTOS
-		int chValor;
-		for(chValor = 0; chValor < 2*t-1 && chValor < p->numChaves; chValor++){
-			printf("%d-",p->chave[chValor]);
+		if(p->numChaves > 0){
+			int chValor;
+			for(chValor = 0; chValor < 2*t-1 && chValor < p->numChaves; chValor++){
+				printf("%d ",p->chave[chValor]);
+			}
+		}
+		//ESTÁ VAZIA
+		else{
+			//FAZ NADA
 		}
 	}
 	
@@ -75,6 +79,7 @@ NO insereArvoreB(NO* raiz, int ch){
 		int chValor = 0;
 		//BUSCO A PRIMEIRA CASA VAZIA
 		while(p->chave[chValor]){
+			printf("OK");
 			chValor++;
 		}
 		//SET OS FILHOS PRA NULL SE FOR O PRIMEIRO ELEMENTO
@@ -159,12 +164,43 @@ void main(){
 	
 	raiz = insereArvoreB(&raiz, 30);
 	raiz = insereArvoreB(&raiz, 20);
-	raiz = insereArvoreB(&raiz, 10);
-	raiz = insereArvoreB(&raiz, 9);
+	//raiz = insereArvoreB(&raiz, 10);
+	//raiz = insereArvoreB(&raiz, 9);
 	imprimeArvoreB(&raiz);
 	
 	raiz = removerArvoreB(&raiz, 30);
+	//raiz = removerArvoreB(&raiz, 20);
+	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(&raiz);
-    //buscaArvoreB(&raiz,20,);
+	
+	int i,r;
+	
+	FILE *fp;
+	fp = fopen("entrada1.txt","r");
+	if (!fp) {
+		printf("Erro ao abrir o arquivo");
+	}
+	else{
+		char buff[255];
+		fscanf(fp, "%s", buff);
+		//printf("f = %s\n", buff );
+		char*save = buff;
+		
+		while(*save!='f'){
+			printf("OK");
+			if(*save!='i'){
+				
+			}
+			else if(*save!='r'){
+				
+			}
+			else if(*save!='p'){
+				imprimeArvoreB(&raiz);
+			}
+			fscanf(fp, "%s", buff);
+			char*save = buff;
+			i = (int)save[0]-48;
+		}
+	}
     printf("\n**************COMPILOU!****************\n");
 }
