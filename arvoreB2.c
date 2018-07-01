@@ -71,7 +71,7 @@ NO insereArvoreB(NO* raiz, int ch){
 	NO* p = raiz;
 	
 	//É FOLHA E NÃO ESTÁ CHEIA
-	if(p->folha && p->numChaves <= 2*t-1){
+	if(p->folha && p->numChaves < 2*t-1){
 		int chValor = 0;
 		//BUSCO A PRIMEIRA CASA VAZIA
 		while(p->chave[chValor]){
@@ -132,6 +132,27 @@ NO insereArvoreB(NO* raiz, int ch){
 	return *raiz;
 }
 
+NO removerArvoreB(NO* raiz, int ch){
+	NO* p = raiz;
+	
+	//NÃO TEM FILHOS
+	if(!p->filho[0]){
+		int chValor;
+		for(chValor = 0; ch != p->chave[chValor]; chValor++){	
+		}
+		if(p->chave[chValor] == ch){
+			p->numChaves--;
+			while(chValor < p->numChaves ){
+				p->chave[chValor] = p->chave[chValor+1];
+				chValor++;
+			}
+			p->chave[chValor] = 0;
+		}		
+	}
+	
+	return *raiz;
+}
+
 void main(){
 	NO raiz;
     raiz = iniciaArvoreB(&raiz);
@@ -140,6 +161,9 @@ void main(){
 	raiz = insereArvoreB(&raiz, 20);
 	raiz = insereArvoreB(&raiz, 10);
 	raiz = insereArvoreB(&raiz, 9);
+	imprimeArvoreB(&raiz);
+	
+	raiz = removerArvoreB(&raiz, 30);
 	imprimeArvoreB(&raiz);
     //buscaArvoreB(&raiz,20,);
     printf("\n**************COMPILOU!****************\n");
