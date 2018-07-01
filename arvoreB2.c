@@ -43,6 +43,17 @@ void imprimeArvoreB(NO*raiz){
     
 	//printf("\n Valor da folha? %s", p->folha?"true":"false");
 	
+	//SE FOR FOLHA
+	if(p->folha){
+		//ESTÁ VAZIA
+			//FAZ NADA
+		//ESTÁ COM ELEMENTOS
+		int chValor;
+		for(chValor = 0; chValor < 2*t-1 && chValor < p->numChaves; chValor++){
+			printf(" %d ",p->chave[chValor]);
+		}
+	}
+	
 	int i = 0;
     while(!p->folha){
         p = p->filho[i];
@@ -56,8 +67,9 @@ NO insereArvoreB(NO* raiz, int ch){
 	NO* p = raiz;
 	if(p->folha){
 		p->chave[0] = ch;
-		int numFilho = 0;
-		while(numFilho < 2*t ){
+		p->numChaves++;
+		int numFilho;
+		for(numFilho = 0; numFilho < 2*t; numFilho++){
 			p->filho[numFilho] = NULL;
 		}
     }
@@ -69,7 +81,7 @@ void main(){
     raiz = iniciaArvoreB(&raiz);
     imprimeArvoreB(&raiz);
 	
-	//raiz = insereArvoreB(&raiz, 10);
+	raiz = insereArvoreB(&raiz, 10);
 	imprimeArvoreB(&raiz);
     //buscaArvoreB(&raiz,20,);
     printf("\n**************COMPILOU!****************\n");
