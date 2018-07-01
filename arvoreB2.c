@@ -9,6 +9,8 @@
 	SE T = 2 MAX DE ELEMENTOS/QUADRADINHOS = 2*T-1 = 3
 	
 	Filhos tem p->numChave.
+	O GCC faz a conta com quebra pro chão, arredonda pra menos.
+	Nesse code ele quebra numeros par para n+1
 */
 
 #include<stdio.h>
@@ -52,7 +54,7 @@ void imprimeArvoreB(NO*raiz){
 		//ESTÁ COM ELEMENTOS
 		int chValor;
 		for(chValor = 0; chValor < 2*t-1 && chValor < p->numChaves; chValor++){
-			printf(" %d ",p->chave[chValor]);
+			printf("%d-",p->chave[chValor]);
 		}
 	}
 	
@@ -93,6 +95,40 @@ NO insereArvoreB(NO* raiz, int ch){
 		p->chave[chValor] = ch;
 		p->numChaves++;
     }
+	
+	//É FOLHA E ESTÁ CHEIA
+	if(p->folha && p->numChaves > 2*t-1){
+		//ACHAR A CHAVE DO MEIO
+		int chValor = 0;
+		while(p->chave[chValor]< ch){
+			chValor++;
+		}
+		//T É UM NUMERO PAR
+		if(t%2==0){
+			if(chValor<=(2*t-1)/2){
+				printf("\n 1 O VALOR DA QUEBRA É %d\n", 1);
+			}
+			if(chValor == ((2*t-1)/2)+1){
+				printf("\n 2 O VALOR DA QUEBRA É %d\n", 2);
+			}
+			if(chValor>((2*t-1)/2)+1){
+				printf("\n 3 O VALOR DA QUEBRA É %d\n", 3);
+			}
+		}
+		// T É UM NUMEMO IMPAR
+		else{
+			if(chValor<(2*t-1)/2){
+				printf("\n 4 O VALOR DA QUEBRA É %d\n", 4);
+			}
+			if(chValor == (2*t-1)/2){
+				printf("\n 5 O VALOR DA QUEBRA É %d\n", 5);
+			}
+			if(chValor>(2*t-1)/2){
+				printf("\n 6 O VALOR DA QUEBRA É %d\n", 6);
+			}
+		}
+	}
+	
 	return *raiz;
 }
 
@@ -103,6 +139,7 @@ void main(){
 	raiz = insereArvoreB(&raiz, 30);
 	raiz = insereArvoreB(&raiz, 20);
 	raiz = insereArvoreB(&raiz, 10);
+	raiz = insereArvoreB(&raiz, 9);
 	imprimeArvoreB(&raiz);
     //buscaArvoreB(&raiz,20,);
     printf("\n**************COMPILOU!****************\n");
