@@ -85,7 +85,9 @@ NO insereArvoreB(NO* raiz, int ch){
 		//BUSCO A PRIMEIRA CASA VAZIA
 		while(p->chave[chValor]){
 			chValor++;
+			//printf("\n ch valor1: %d \n", chValor);
 		}
+		p->chave[chValor] = ch;
 		//SET OS FILHOS PRA NULL SE FOR O PRIMEIRO ELEMENTO
 		if(chValor == 0){
 			int numFilho;
@@ -96,13 +98,23 @@ NO insereArvoreB(NO* raiz, int ch){
 		//VERIFICO SE ESTÁ ORDENADA
 		else{
 			//SE A ANT É MAIOR QUE A INSERIDA
-			while(p->chave[chValor-1] > ch){
+			while(p->chave[chValor-1] > p->chave[chValor]){
+				//printf("\n ch valor: %d \n", p->chave[chValor-1]);
+				int aux = p->chave[chValor];
 				p->chave[chValor] = p->chave[chValor-1];
-				chValor--;
+				p->chave[chValor-1] = aux;
+				if(chValor>1){
+					chValor--;
+				}
+				else{
+					break;
+				}
+				printf("\n ch valor2: %d \n", chValor);
 			}
 		}
-		p->chave[chValor] = ch;
-		//printf("chave inserida %d \n",p->chave[chValor]);
+		//p->chave[chValor] = ch;
+		printf("chave inserida %d %d\n",p->chave[chValor], chValor);
+		
 		//AUMENTA O NUMERO DE CHAVES NO REGISTRO
 		p->numChaves++;
     }
@@ -139,7 +151,7 @@ NO insereArvoreB(NO* raiz, int ch){
 			}
 		}
 	}
-	
+	printf("\n inserimos 0 é: %d \n",p->chave[0]);
 	return *raiz;
 }
 
@@ -170,12 +182,12 @@ void main(){
 	
 	raiz = insereArvoreB(&raiz, 30);
 	raiz = insereArvoreB(&raiz, 20);
-	//raiz = insereArvoreB(&raiz, 10);
+	raiz = insereArvoreB(&raiz, 10);
 	//raiz = insereArvoreB(&raiz, 9);
-	imprimeArvoreB(raiz);
+	//imprimeArvoreB(raiz);
 	
 	//raiz = removerArvoreB(&raiz, 30);
-	//raiz = removerArvoreB(&raiz, 20);
+	raiz = removerArvoreB(&raiz, 20);
 	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
 	
