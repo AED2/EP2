@@ -88,6 +88,8 @@ NO insereArvoreB(NO* raiz, int ch){
 			//printf("\n ch valor1: %d \n", chValor);
 		}
 		p->chave[chValor] = ch;
+		//AUMENTA O NUMERO DE CHAVES NO REGISTRO
+		p->numChaves++;
 		//SET OS FILHOS PRA NULL SE FOR O PRIMEIRO ELEMENTO
 		if(chValor == 0){
 			int numFilho;
@@ -109,14 +111,8 @@ NO insereArvoreB(NO* raiz, int ch){
 				else{
 					break;
 				}
-				printf("\n ch valor2: %d \n", chValor);
 			}
 		}
-		//p->chave[chValor] = ch;
-		printf("chave inserida %d %d\n",p->chave[chValor], chValor);
-		
-		//AUMENTA O NUMERO DE CHAVES NO REGISTRO
-		p->numChaves++;
     }
 	
 	//É FOLHA E ESTÁ CHEIA
@@ -151,7 +147,6 @@ NO insereArvoreB(NO* raiz, int ch){
 			}
 		}
 	}
-	printf("\n inserimos 0 é: %d \n",p->chave[0]);
 	return *raiz;
 }
 
@@ -191,7 +186,7 @@ void main(){
 	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
 	
-	int i,r;
+	int i1,i2,i,r1,r2,r;
 	
 	FILE *fp;
 	fp = fopen("entrada1.txt","r");
@@ -205,26 +200,31 @@ void main(){
 		char*save = buff;
 		
 		while(*save!='f'){
-			printf("OK");
-			if(*save=='i'){
-				//LÊ O ESPAÇO
+			
+			printf("OK %c", save[1]);
+			if(*save =='i'){
+				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
+				i1 = (int)save[1]-48;
+				printf("\n Meu valor é %d \n",i1);
 				//LÊ O SEGUNDO NUMERO
-				//CONCATENA				
+				//CONCATENA	
+				i = i1;
+				raiz = insereArvoreB(&raiz, i);
 			}
 			else if(*save=='r'){
-				//LÊ O ESPAÇO
+				printf("OK2");
 				//LÊ O PRIMEIRO NUMERO
 				//LÊ O SEGUNDO NUMERO
 				//CONCATENA
 			}
 			else if(*save=='p'){
+				printf("OK3");
 				imprimeArvoreB(raiz);
 			}
 			//LÊ A PROXIMA LINHA
-			fscanf(fp, "%s", buff);
-			char*save = buff;
-			i = (int)save[0]-48;
+			fgets(buff, 255, (FILE*)fp);
+			save = buff;
 		}
 	}
     printf("\n**************COMPILOU!****************\n");
