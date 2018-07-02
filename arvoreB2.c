@@ -41,19 +41,19 @@ NO iniciaArvoreB(NO* raiz){
 	return *raiz;
 }
 
-void imprimeArvoreB(NO*raiz){
-    NO* p = raiz;
+void imprimeArvoreB(NO raiz){
+    NO p = raiz;
     printf("\n(S");
     
 	//printf("\n Valor da folha? %s", p->folha?"true":"false");
 	
 	//SE FOR FOLHA
-	if(p->folha){
+	if(p.folha){
 		//ESTÁ COM ELEMENTOS
-		if(p->numChaves > 0){
+		if(p.numChaves > 0){
 			int chValor;
-			for(chValor = 0; chValor < 2*t-1 && chValor < p->numChaves; chValor++){
-				printf("%d ",p->chave[chValor]);
+			for(chValor = 0; chValor < 2*t-1 && chValor < p.numChaves; chValor++){
+				printf("%d ",p.chave[chValor]);
 			}
 		}
 		//ESTÁ VAZIA
@@ -63,8 +63,8 @@ void imprimeArvoreB(NO*raiz){
 	}
 	
 	int i = 0;
-    while(!p->folha){
-        p = p->filho[i];
+    while(!p.folha){
+        p = *p.filho[i];
         printf("(I");
     }
 	
@@ -73,13 +73,11 @@ void imprimeArvoreB(NO*raiz){
 
 NO insereArvoreB(NO* raiz, int ch){
 	NO* p = raiz;
-	
 	//É FOLHA E NÃO ESTÁ CHEIA
 	if(p->folha && p->numChaves < 2*t-1){
 		int chValor = 0;
 		//BUSCO A PRIMEIRA CASA VAZIA
 		while(p->chave[chValor]){
-			printf("OK");
 			chValor++;
 		}
 		//SET OS FILHOS PRA NULL SE FOR O PRIMEIRO ELEMENTO
@@ -98,11 +96,13 @@ NO insereArvoreB(NO* raiz, int ch){
 			}
 		}
 		p->chave[chValor] = ch;
+		//printf("chave inserida %d \n",p->chave[chValor]);
+		//AUMENTA O NUMERO DE CHAVES NO REGISTRO
 		p->numChaves++;
     }
 	
 	//É FOLHA E ESTÁ CHEIA
-	if(p->folha && p->numChaves > 2*t-1){
+	else if(p->folha && p->numChaves > 2*t-1){
 		//ACHAR A CHAVE DO MEIO
 		int chValor = 0;
 		while(p->chave[chValor]< ch){
@@ -166,12 +166,12 @@ void main(){
 	raiz = insereArvoreB(&raiz, 20);
 	//raiz = insereArvoreB(&raiz, 10);
 	//raiz = insereArvoreB(&raiz, 9);
-	imprimeArvoreB(&raiz);
+	imprimeArvoreB(raiz);
 	
-	raiz = removerArvoreB(&raiz, 30);
-	//raiz = removerArvoreB(&raiz, 20);
+	//raiz = removerArvoreB(&raiz, 30);
+	raiz = removerArvoreB(&raiz, 20);
 	//raiz = removerArvoreB(&raiz, 10);
-	imprimeArvoreB(&raiz);
+	imprimeArvoreB(raiz);
 	
 	int i,r;
 	
@@ -188,15 +188,22 @@ void main(){
 		
 		while(*save!='f'){
 			printf("OK");
-			if(*save!='i'){
-				
+			if(*save=='i'){
+				//LÊ O ESPAÇO
+				//LÊ O PRIMEIRO NUMERO
+				//LÊ O SEGUNDO NUMERO
+				//CONCATENA				
 			}
-			else if(*save!='r'){
-				
+			else if(*save=='r'){
+				//LÊ O ESPAÇO
+				//LÊ O PRIMEIRO NUMERO
+				//LÊ O SEGUNDO NUMERO
+				//CONCATENA
 			}
-			else if(*save!='p'){
-				imprimeArvoreB(&raiz);
+			else if(*save=='p'){
+				imprimeArvoreB(raiz);
 			}
+			//LÊ A PROXIMA LINHA
 			fscanf(fp, "%s", buff);
 			char*save = buff;
 			i = (int)save[0]-48;
