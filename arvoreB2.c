@@ -181,9 +181,9 @@ void main(){
 	//raiz = insereArvoreB(&raiz, 9);
 	//imprimeArvoreB(raiz);
 	
-	//raiz = removerArvoreB(&raiz, 30);
+	raiz = removerArvoreB(&raiz, 30);
 	raiz = removerArvoreB(&raiz, 20);
-	//raiz = removerArvoreB(&raiz, 10);
+	raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
 	
 	int i1,i2,i,r1,r2,r;
@@ -196,30 +196,32 @@ void main(){
 	else{
 		char buff[255];
 		fscanf(fp, "%s", buff);
-		//printf("f = %s\n", buff );
 		char*save = buff;
 		
 		while(*save!='f'){
-			
-			printf("OK %c", save[1]);
 			if(*save =='i'){
+				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
 				i1 = (int)save[1]-48;
-				printf("\n Meu valor é %d \n",i1);
 				//LÊ O SEGUNDO NUMERO
+				i2 = (int)save[2]-48;
 				//CONCATENA	
-				i = i1;
+				i = (i1*10) + i2;
 				raiz = insereArvoreB(&raiz, i);
 			}
 			else if(*save=='r'){
-				printf("OK2");
+				//LÊ O ESPAÇO
+				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
+				r1 = (int)save[1]-48;
 				//LÊ O SEGUNDO NUMERO
-				//CONCATENA
+				r2 = (int)save[2]-48;
+				//CONCATENA	
+				r = (r1*10) + r2;
+				raiz = removerArvoreB(&raiz, r);
 			}
 			else if(*save=='p'){
-				printf("OK3");
 				imprimeArvoreB(raiz);
 			}
 			//LÊ A PROXIMA LINHA
