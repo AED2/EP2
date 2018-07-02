@@ -197,9 +197,11 @@ void main(){
 		char buff[255];
 		fscanf(fp, "%s", buff);
 		char*save = buff;
-		
-		while(*save!='f'){
-			if(*save =='i'){
+		printf(" before %c\n", save[0]);
+		while(save[0]!='f'){
+			//fgets(buff, 255, (FILE*)fp);
+			printf("OK zero:%c one:%c two:%c tre:%c \n", save[0], save[1], save[2], save[3]);
+			if(save[0] =='i' && raiz.numChaves == 0){
 				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
@@ -210,7 +212,20 @@ void main(){
 				i = (i1*10) + i2;
 				raiz = insereArvoreB(&raiz, i);
 			}
-			else if(*save=='r'){
+			else if(save[0] =='i'){
+				//LÊ O ESPAÇO
+				fgets(buff, 255, (FILE*)fp);
+				fgets(buff, 255, (FILE*)fp);
+				save = buff;
+				//LÊ O PRIMEIRO NUMERO
+				i1 = (int)save[2]-48;
+				//LÊ O SEGUNDO NUMERO
+				i2 = (int)save[3]-48;
+				//CONCATENA	
+				i = (i1*10) + i2;
+				raiz = insereArvoreB(&raiz, i);
+			}
+			else if(save[0] =='r'){
 				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
@@ -221,13 +236,16 @@ void main(){
 				r = (r1*10) + r2;
 				raiz = removerArvoreB(&raiz, r);
 			}
-			else if(*save=='p'){
+			else if(save[0] =='p'){
+				printf("\n ENTRO P\n");
 				imprimeArvoreB(raiz);
 			}
 			//LÊ A PROXIMA LINHA
 			fgets(buff, 255, (FILE*)fp);
 			save = buff;
+			printf(" after %c\n", save[0]);
 		}
 	}
+	imprimeArvoreB(raiz);
     printf("\n**************COMPILOU!****************\n");
 }
