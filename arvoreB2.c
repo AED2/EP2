@@ -130,18 +130,17 @@ NO insereArvoreB(NO* raiz, int ch){
 				printf("\n CASO 1 O VALOR DA QUEBRA É %d\n", chValor);
 				NO raizNew;
 				iniciaArvoreB(&raizNew);
-				*raiz = raizNew;
-				*raiz =insereArvoreB(raiz,p->chave[(2*t-1)/2]);
-				raiz->folha = false;
-				*raiz =insereArvoreB(raiz,ch);
-				for(chValor = 1; chValor<=(2*t-1)/2; chValor++){
-					*raiz =insereArvoreB(raiz,p->chave[chValor]);
+				raizNew =insereArvoreB(&raizNew ,p->chave[(2*t-1)/2]);
+				raizNew.folha = false;
+				raizNew =insereArvoreB(&raizNew ,ch);
+				for(chValor = 0; chValor<=(2*t-1)/2; chValor++){
+					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
 				}
 				for(chValor = p->numChaves-1; chValor>(2*t-1)/2; chValor--){
-					*raiz =insereArvoreB(raiz,p->chave[chValor]);
+					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
 				}
 				printf("\n Vou imprimir \n");
-				imprimeArvoreB(*raiz);
+				imprimeArvoreB(raizNew );
 			}
 			if(chValor == ((2*t-1)/2)+1){
 				printf("\n 2 O VALOR DA QUEBRA É %d\n", 2);
