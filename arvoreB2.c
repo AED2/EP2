@@ -42,6 +42,9 @@ NO iniciaArvoreB(NO* raiz){
 }
 
 void imprimeArvoreB(NO raiz){
+	FILE * fp;
+	fp = fopen ("saida1.txt", "w+");
+	
     NO p = raiz;
     printf("\n(S");
     
@@ -54,6 +57,8 @@ void imprimeArvoreB(NO raiz){
 			int chValor;
 			for(chValor = 0; chValor < 2*t-1 && chValor < p.numChaves; chValor++){
 				printf("%d ",p.chave[chValor]);
+			    //fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
+				fprintf(fp,"\n %d ",p.chave[chValor]);			    
 			}
 		}
 		//ESTÁ VAZIA
@@ -69,6 +74,7 @@ void imprimeArvoreB(NO raiz){
     }
 	
     printf("E)\n");
+	fclose(fp);
 }
 
 NO insereArvoreB(NO* raiz, int ch){
@@ -169,7 +175,7 @@ void main(){
 	imprimeArvoreB(raiz);
 	
 	//raiz = removerArvoreB(&raiz, 30);
-	raiz = removerArvoreB(&raiz, 20);
+	//raiz = removerArvoreB(&raiz, 20);
 	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
 	
