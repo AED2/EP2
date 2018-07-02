@@ -43,7 +43,7 @@ NO iniciaArvoreB(NO* raiz){
 
 void imprimeArvoreB(NO raiz){
 	FILE * fp;
-	fp = fopen ("saida1.txt", "w+");
+	fp = fopen ("saida1.txt", "w");
 	
     NO p = raiz;
     printf("\n(S");
@@ -74,10 +74,11 @@ void imprimeArvoreB(NO raiz){
     }
 	
     printf("E)\n");
-	fclose(fp);
+	//fclose(fp);
 }
 
 NO insereArvoreB(NO* raiz, int ch){
+	printf("Vou inserir a chave: %d \n",ch);
 	NO* p = raiz;
 	//É FOLHA E NÃO ESTÁ CHEIA
 	if(p->folha && p->numChaves < 2*t-1){
@@ -116,7 +117,8 @@ NO insereArvoreB(NO* raiz, int ch){
     }
 	
 	//É FOLHA E ESTÁ CHEIA
-	else if(p->folha && p->numChaves > 2*t-1){
+	else if(p->folha && p->numChaves >= 2*t-1){
+		printf("Vou inserir uma FOLHA E ESTÁ CHEIA \n");
 		//ACHAR A CHAVE DO MEIO
 		int chValor = 0;
 		while(p->chave[chValor]< ch){
@@ -125,7 +127,21 @@ NO insereArvoreB(NO* raiz, int ch){
 		//T É UM NUMERO PAR
 		if(t%2==0){
 			if(chValor<=(2*t-1)/2){
-				printf("\n 1 O VALOR DA QUEBRA É %d\n", 1);
+				printf("\n CASO 1 O VALOR DA QUEBRA É %d\n", chValor);
+				NO raizNew;
+				iniciaArvoreB(&raizNew);
+				*raiz = raizNew;
+				*raiz =insereArvoreB(raiz,p->chave[(2*t-1)/2]);
+				raiz->folha = false;
+				*raiz =insereArvoreB(raiz,ch);
+				for(chValor = 1; chValor<=(2*t-1)/2; chValor++){
+					*raiz =insereArvoreB(raiz,p->chave[chValor]);
+				}
+				for(chValor = p->numChaves-1; chValor>(2*t-1)/2; chValor--){
+					*raiz =insereArvoreB(raiz,p->chave[chValor]);
+				}
+				printf("\n Vou imprimir \n");
+				imprimeArvoreB(*raiz);
 			}
 			if(chValor == ((2*t-1)/2)+1){
 				printf("\n 2 O VALOR DA QUEBRA É %d\n", 2);
@@ -147,6 +163,10 @@ NO insereArvoreB(NO* raiz, int ch){
 			}
 		}
 	}
+	return *raiz;
+}
+
+NO insereFilhoArvoreB(NO* raiz, int chs[], int filho){
 	return *raiz;
 }
 
@@ -178,14 +198,14 @@ void main(){
 	raiz = insereArvoreB(&raiz, 30);
 	raiz = insereArvoreB(&raiz, 20);
 	raiz = insereArvoreB(&raiz, 10);
-	//raiz = insereArvoreB(&raiz, 9);
+	raiz = insereArvoreB(&raiz, 9);
 	//imprimeArvoreB(raiz);
 	
-	raiz = removerArvoreB(&raiz, 30);
-	raiz = removerArvoreB(&raiz, 20);
-	raiz = removerArvoreB(&raiz, 10);
+	//raiz = removerArvoreB(&raiz, 30);
+	//raiz = removerArvoreB(&raiz, 20);
+	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
-	
+/*	
 	int i1,i2,i,r1,r2,r;
 	
 	FILE *fp;
@@ -197,10 +217,9 @@ void main(){
 		char buff[255];
 		fscanf(fp, "%s", buff);
 		char*save = buff;
-		printf(" before %c\n", save[0]);
 		while(save[0]!='f'){
 			//fgets(buff, 255, (FILE*)fp);
-			printf("OK zero:%c one:%c two:%c tre:%c \n", save[0], save[1], save[2], save[3]);
+			//printf("OK zero:%c one:%c two:%c tre:%c \n", save[0], save[1], save[2], save[3]);
 			if(save[0] =='i' && raiz.numChaves == 0){
 				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
@@ -211,12 +230,13 @@ void main(){
 				//CONCATENA	
 				i = (i1*10) + i2;
 				raiz = insereArvoreB(&raiz, i);
+				imprimeArvoreB(raiz);
 			}
 			else if(save[0] =='i'){
 				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
 				fgets(buff, 255, (FILE*)fp);
-				save = buff;
+				//save = buff;
 				//LÊ O PRIMEIRO NUMERO
 				i1 = (int)save[2]-48;
 				//LÊ O SEGUNDO NUMERO
@@ -224,28 +244,30 @@ void main(){
 				//CONCATENA	
 				i = (i1*10) + i2;
 				raiz = insereArvoreB(&raiz, i);
+				imprimeArvoreB(raiz);
 			}
 			else if(save[0] =='r'){
 				//LÊ O ESPAÇO
 				fgets(buff, 255, (FILE*)fp);
+				fgets(buff, 255, (FILE*)fp);
 				//LÊ O PRIMEIRO NUMERO
-				r1 = (int)save[1]-48;
+				r1 = (int)save[2]-48;
 				//LÊ O SEGUNDO NUMERO
-				r2 = (int)save[2]-48;
+				r2 = (int)save[3]-48;
 				//CONCATENA	
 				r = (r1*10) + r2;
 				raiz = removerArvoreB(&raiz, r);
+				imprimeArvoreB(raiz);
 			}
 			else if(save[0] =='p'){
-				printf("\n ENTRO P\n");
 				imprimeArvoreB(raiz);
 			}
 			//LÊ A PROXIMA LINHA
 			fgets(buff, 255, (FILE*)fp);
 			save = buff;
-			printf(" after %c\n", save[0]);
+			//printf(" after %c\n", save[0]);
 		}
 	}
 	imprimeArvoreB(raiz);
-    printf("\n**************COMPILOU!****************\n");
+*/    printf("\n**************COMPILOU!****************\n");
 }
