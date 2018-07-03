@@ -1,4 +1,9 @@
 /**
+	DADOS PESSOAIS>>>
+	
+	MARA TAMIRIS MIRANDA DE OLIVEIRA
+	9761701
+	
 	COMO COMPILAR:
 	
 	gcc arvoreB2.c -o arvoreB2exeFile.exe
@@ -11,6 +16,7 @@
 	Filhos tem p->numChave.
 	O GCC faz a conta com quebra pro chão, arredonda pra menos.
 	Nesse code ele quebra numeros par para n+1
+	
 */
 
 #include<stdio.h>
@@ -42,23 +48,24 @@ NO iniciaArvoreB(NO* raiz){
 }
 
 void imprimeArvoreB(NO raiz){
+	//printf("\n **INICIANDO IMPRESSÃO**\n");
 	FILE * fp;
 	fp = fopen ("saida1.txt", "w");
 	
     NO p = raiz;
-    printf("\n(S");
-    
-	//printf("\n Valor da folha? %s", p->folha?"true":"false");
-	
-	//SE FOR FOLHA
+    printf("\n(");
+	fprintf(fp,"(");
+
+	//É RAIZ FOLHA
 	if(p.folha){
+		//printf("\n É RAIZ FOLHA \n");
 		//ESTÁ COM ELEMENTOS
 		if(p.numChaves > 0){
 			int chValor;
 			for(chValor = 0; chValor < 2*t-1 && chValor < p.numChaves; chValor++){
 				printf("%d ",p.chave[chValor]);
 			    //fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
-				fprintf(fp,"\n %d ",p.chave[chValor]);			    
+				fprintf(fp,"%d ",p.chave[chValor]);			    
 			}
 		}
 		//ESTÁ VAZIA
@@ -66,14 +73,18 @@ void imprimeArvoreB(NO raiz){
 			//FAZ NADA
 		}
 	}
-	
-	int i = 0;
-    while(!p.folha){
-        p = *p.filho[i];
-        printf("(I");
-    }
-	
-    printf("E)\n");
+	//NÃO É RAIZ FOLHA
+	else{
+		printf("NÃO É RAIZ FOLHA");
+		int i = 0;
+		while(!p.folha){
+			printf("NÃO É RAIZ FOLHA");
+			p = *p.filho[i];
+			printf("(I");
+		}
+	}
+	fprintf(fp,")");
+    printf(")\n");
 	//fclose(fp);
 }
 
@@ -133,14 +144,15 @@ NO insereArvoreB(NO* raiz, int ch){
 				raizNew =insereArvoreB(&raizNew ,p->chave[(2*t-1)/2]);
 				raizNew.folha = false;
 				raizNew =insereArvoreB(&raizNew ,ch);
-				for(chValor = 0; chValor<=(2*t-1)/2; chValor++){
+				for(chValor = 0; chValor<(2*t-1)/2; chValor++){
 					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
 				}
 				for(chValor = p->numChaves-1; chValor>(2*t-1)/2; chValor--){
 					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
 				}
 				printf("\n Vou imprimir \n");
-				imprimeArvoreB(raizNew );
+				imprimeArvoreB(raizNew);
+				return raizNew;
 			}
 			if(chValor == ((2*t-1)/2)+1){
 				printf("\n 2 O VALOR DA QUEBRA É %d\n", 2);
@@ -152,7 +164,21 @@ NO insereArvoreB(NO* raiz, int ch){
 		// T É UM NUMEMO IMPAR
 		else{
 			if(chValor<(2*t-1)/2){
-				printf("\n 4 O VALOR DA QUEBRA É %d\n", 4);
+				printf("\n 4 O VALOR DA QUEBRA É %d\n", chValor);
+				NO raizNew;
+				iniciaArvoreB(&raizNew);
+				raizNew =insereArvoreB(&raizNew ,p->chave[(2*t-1)/2]);
+				raizNew.folha = false;
+				raizNew =insereArvoreB(&raizNew ,ch);
+				for(chValor = 0; chValor<(2*t-1)/2; chValor++){
+					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
+				}
+				for(chValor = p->numChaves-1; chValor>(2*t-1)/2; chValor--){
+					raizNew  =insereArvoreB(&raizNew ,p->chave[chValor]);
+				}
+				printf("\n Vou imprimir \n");
+				imprimeArvoreB(raizNew);
+				return raizNew;
 			}
 			if(chValor == (2*t-1)/2){
 				printf("\n 5 O VALOR DA QUEBRA É %d\n", 5);
@@ -162,10 +188,6 @@ NO insereArvoreB(NO* raiz, int ch){
 			}
 		}
 	}
-	return *raiz;
-}
-
-NO insereFilhoArvoreB(NO* raiz, int chs[], int filho){
 	return *raiz;
 }
 
@@ -193,18 +215,18 @@ NO removerArvoreB(NO* raiz, int ch){
 void main(){
 	NO raiz;
     raiz = iniciaArvoreB(&raiz);
-	
+/*	
 	raiz = insereArvoreB(&raiz, 30);
 	raiz = insereArvoreB(&raiz, 20);
 	raiz = insereArvoreB(&raiz, 10);
 	raiz = insereArvoreB(&raiz, 9);
-	//imprimeArvoreB(raiz);
+	imprimeArvoreB(raiz);
 	
 	//raiz = removerArvoreB(&raiz, 30);
 	//raiz = removerArvoreB(&raiz, 20);
 	//raiz = removerArvoreB(&raiz, 10);
 	imprimeArvoreB(raiz);
-/*	
+*/
 	int i1,i2,i,r1,r2,r;
 	
 	FILE *fp;
@@ -268,5 +290,5 @@ void main(){
 		}
 	}
 	imprimeArvoreB(raiz);
-*/    printf("\n**************COMPILOU!****************\n");
+    printf("\n**************COMPILOU!****************\n");
 }
