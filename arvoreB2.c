@@ -13,6 +13,9 @@
 	SE T = 2 MAX FILHOS/SETAS SAINDO = 2*T = 4
 	SE T = 2 MAX DE ELEMENTOS/QUADRADINHOS = 2*T-1 = 3
 	
+	SE T = 2 MAX FILHOS/SETAS SAINDO = 2*T = 6
+	SE T = 2 MAX DE ELEMENTOS/QUADRADINHOS = 2*T-1 = 5
+	
 	Filhos tem p->numChave.
 	O GCC faz a conta com quebra pro chão, arredonda pra menos.
 	Nesse code ele quebra numeros par para n+1
@@ -24,7 +27,7 @@
 #include <stdlib.h>
 #include <float.h>
 
-#define t 2
+#define t 3
 
 typedef int TipoChave;
 
@@ -64,7 +67,6 @@ void imprimeArvoreB(NO raiz){
 			int chValor;
 			for(chValor = 0; chValor < 2*t-1 && chValor < p.numChaves; chValor++){
 				printf("%d ",p.chave[chValor]);
-			    //fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
 				fprintf(fp,"%d ",p.chave[chValor]);			    
 			}
 		}
@@ -85,7 +87,7 @@ void imprimeArvoreB(NO raiz){
 	}
 	fprintf(fp,")");
     printf(")\n");
-	//fclose(fp);
+	fclose(fp);
 }
 
 NO insereArvoreB(NO* raiz, int ch){
